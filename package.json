@@ -1,0 +1,23 @@
+{
+  "name": "vn-launcher",
+  "version": "1.0.0",
+  "main": "./out/main/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron-vite preview",
+    "dev": "electron-vite dev",
+    "prebuild": "electron-vite build"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.3.58",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "electron-vite": "^1.0.22",
+    "vite": "^4.3.6"
+  },
+  "dependencies": {
+    "electron": "^24.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
