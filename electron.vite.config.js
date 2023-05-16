@@ -4,12 +4,11 @@ export default defineConfig({
   main: {
     // ...
     plugins: [swcPlugin()],
+    build: {},
   },
   preload: {
     // ...
-    build: {
-      
-    }
+    build: {},
   },
   renderer: defineViteConfig(({ command, mode }) => {
     // conditional config use defineViteConfig
