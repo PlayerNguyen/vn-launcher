@@ -7,22 +7,37 @@
   "scripts": {
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
-    "prebuild": "electron-vite build"
+    "prebuild": "electron-vite build",
+    "test-unit": "mocha src/**/*.spec.ts"
   },
   "devDependencies": {
+    "@swc-node/register": "^1.6.5",
     "@swc/core": "^1.3.58",
+    "@types/chai": "^4.3.5",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/fs-extra": "^11.0.1",
+    "@types/mocha": "^10.0.1",
+    "@types/node-fetch": "^2.6.4",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "autoprefixer": "^10.4.14",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
     "classnames": "^2.3.2",
     "daisyui": "^2.51.6",
     "electron-vite": "^1.0.22",
+    "mocha": "^10.2.0",
     "postcss": "^8.4.23",
     "tailwindcss": "^3.3.2",
+    "typescript": "^5.0.4",
     "vite": "^4.3.6"
   },
   "dependencies": {
     "electron": "^24.3.0",
+    "extra-fs": "^3.2.17",
+    "fs-extra": "^11.1.1",
+    "node-fetch": "2.6.9",
+    "p-limit": "3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
