@@ -11,6 +11,7 @@ export module toolbox {
         width: 400,
         height: 600,
         frame: false,
+        resizable: false,
         webPreferences: {
           preload: path.join(__dirname, "../preload/index.js"),
         },
