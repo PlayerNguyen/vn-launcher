@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from "electron";
-import path from "node:path";
+import path from "path";
+import { toolbox } from "./toolbox/toolbox";
 
 function createWindow() {
   // Create the browser window
@@ -26,4 +27,19 @@ function createWindow() {
 
 app.whenReady().then(() => {
   createWindow();
+  toolbox.setupToolbox();
+
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
+
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
+});
+
+app.on("quit", () => {
+  /**
+   * Before quit
+   */
 });
