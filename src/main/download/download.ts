@@ -61,13 +61,16 @@ export module download {
   }
 
   export async function fetchData(item: Item, controller: AbortController) {
+    // Trying to download
     const response = await fetch(item.url, {
       signal: controller.signal,
     });
+    // If the response is not success, throw an Error
+    if (response.status !== 200) {
+      throw new Error(`${item.url} response with status ${response.status}.`);
+    }
     const destStream = createWriteStream(item.dest);
-
     await promisePipe(response.body, destStream);
-
     return item;
   }
 }
