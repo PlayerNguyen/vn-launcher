@@ -4,11 +4,11 @@ import { expect } from "chai";
 import { download } from "../download";
 import { test } from "../../__test__/test";
 
-describe("[unit] download", () => {
-  it(`should download and write file`, function () {
-    // Long duration test
-    this.timeout(4000);
+describe("[unit] download", function () {
+  // Long duration test
+  this.timeout(4000);
 
+  it(`should download and write file`, function () {
     // Create a pool
     const _pool = new download.Pool();
     _pool.add({
@@ -61,5 +61,26 @@ describe("[unit] download", () => {
         }),
       ])
     ).to.rejectedWith(Error, `The user aborted a request.`);
+  });
+
+  it(`should change item status when downloading`, () => {
+    let item: download.Item = download.createDownloadItem(
+      "https://httpstat.us/200",
+      path.join(test.getOutputTestDirectory(), "200_1")
+    );
+
+    expect(item.status).to.eq("pending");
+
+    let pool = new download.Pool();
+    pool.add(item);
+
+    const _process = new Promise((res) =>
+      pool
+        .download()
+        .then((items) => items[0].status)
+        .then((status) => res(status))
+    );
+
+    return expect(_process).to.eventually.eq("success");
   });
 });

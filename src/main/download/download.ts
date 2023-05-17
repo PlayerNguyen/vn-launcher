@@ -7,7 +7,12 @@ import { createWriteStream } from "fs-extra";
 const promisePipe = promisify(pipeline);
 
 export module download {
-  export type ItemStatus = "pending" | "failed" | "success";
+  export type ItemStatus =
+    | "pending"
+    | "failed"
+    | "success"
+    | "downloading"
+    | "writing";
   export interface Item {
     url: string;
     dest: string;
@@ -65,12 +70,27 @@ export module download {
     const response = await fetch(item.url, {
       signal: controller.signal,
     });
+    item.status = "downloading";
+
     // If the response is not success, throw an Error
     if (response.status !== 200) {
+      item.status = "failed";
       throw new Error(`${item.url} response with status ${response.status}.`);
     }
+
+    item.status = "writing";
     const destStream = createWriteStream(item.dest);
     await promisePipe(response.body, destStream);
+    item.status = "success";
+
     return item;
+  }
+
+  export function createDownloadItem(url: string, dest: string): Item {
+    return {
+      url,
+      dest,
+      status: "pending",
+    };
   }
 }
