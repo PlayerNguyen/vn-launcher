@@ -57,6 +57,9 @@ export module download {
         )
       );
 
+      // Then clear all item in awaiter
+      this.awaiter = [];
+
       return Promise.all(processes);
     }
 
