@@ -83,4 +83,21 @@ describe("[unit] download", function () {
 
     return expect(_process).to.eventually.eq("success");
   });
+
+  it(`should download last item in pool`, () => {
+    const _pool = new download.Pool();
+    _pool.add({
+      dest: path.join(test.getOutputTestDirectory(), "200"),
+      url: "https://httpstat.us/200",
+    });
+    const downloadTask = async () => {
+      // Start to download
+      const downloadedItem: download.Item = await _pool.downloadLast();
+
+      // Check if exists
+      return fse.existsSync(downloadedItem.dest);
+    };
+
+    return expect(downloadTask()).to.eventually.be.true;
+  });
 });

@@ -60,6 +60,20 @@ export module download {
       return Promise.all(processes);
     }
 
+    /**
+     * Download the latest item that added into the awaiter.
+     *
+     * @returns the promise of the download process
+     */
+    public async downloadLast() {
+      const last = this.awaiter.pop();
+      if (last === undefined) {
+        throw new Error(`The pool await items is empty.`);
+      }
+
+      return await this.limitFn(() => fetchData(last, this.signalController));
+    }
+
     public cancel(reason?: any) {
       return this.signalController.abort(reason);
     }
